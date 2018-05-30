@@ -73,4 +73,5 @@ public class Poo22 {
         return id;
         
     }
+    Connection conn;
 }
