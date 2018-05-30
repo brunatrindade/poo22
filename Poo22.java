@@ -13,13 +13,14 @@ public class Poo22 {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static int main(String[] args) {
         
        // dados da conexão
        String DB_URL = "jdbc:mysql://localhost/poo2";
        String USER = "admin";
        String PASS = "andrbru";
     
+       int id = 0;
         
     try {
            Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
@@ -32,7 +33,7 @@ public class Poo22 {
 
            
            //precorre o resultset
-           while (rs.next()) {
+           /*while (rs.next()) {
                int id = rs.getInt("id");
                String nome_completo = rs.getString("nome");
                String cpf = rs.getString("cpf");
@@ -55,7 +56,12 @@ public class Poo22 {
                System.out.print(", data_nasc: " + data_nasc);
                System.out.print(", usuario: " + usuario);
                System.out.print("e senha: " + senha);
+           }*/
+           
+           while (rs.next()) {
+                id = rs.getInt("id");
            }
+           
            
            System.out.println("Finalizou.");
             
@@ -63,6 +69,8 @@ public class Poo22 {
             //Logger.getLogger(ConectandoBanco.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println(ex);
         }
+    
+        return id;
         
     }
 }
