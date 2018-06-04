@@ -5,12 +5,12 @@ import java.util.Scanner;
 
 public class inicio {
     
-    public static void menuLogado(usuario user) throws SQLException {
+    /*public static void menuLogado(usuario user) throws SQLException {
     
     int escolha;
     boolean loop = true;
     
-    }
+    }*/
     
     public static void menuInicial() throws SQLException {
     int escolha;
@@ -49,7 +49,7 @@ public class inicio {
         }
 }
     
-/*public static void menuLogado(usuario user) throws SQLException {
+public static void menuLogado(usuario user) throws SQLException {
     
     int escolha;
     boolean loop = true;
@@ -61,23 +61,21 @@ public class inicio {
             System.out.println("1-Cadastrar Imovel");
             System.out.println("2-Editar cadastro de imovel");
             System.out.println("3-Listar Imoveis");
-            System.out.println("4-Cadastrar Usuario");
-            System.out.println("5-Editar cadastro de usuario");
-            System.out.println("6-Sair");
+            System.out.println("4-Sair");
             
             escolha = scan.nextInt();
             
             switch (escolha) {
                 case 1:
-                    dinheiro.enviar(user);
+                    imovel.cadastrar_imovel(user);
                     break;
                 case 2:
-                    dinheiro.depositar(user);
+                    imovel.editar_cadastro(user);
                     break;
                 case 3:
-                    dinheiro.solicitar(user);
+                    imovel.listar(user);
                     break;
-                case 7:
+                case 4:
                     loop = false;
                     break;
                 default:
@@ -85,13 +83,13 @@ public class inicio {
                     break;
             }
         }
-}*/
+}
 
     public static void main(String[] args) throws SQLException{
         
         menuInicial();
         
-        System.out.println("Adeus!");
+        System.out.println("Out!");
     }
 }
 
