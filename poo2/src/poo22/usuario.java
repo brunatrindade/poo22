@@ -15,6 +15,13 @@ public class usuario {
     public static int id;
     public static String user;
     public static String senha;
+    public static String nome;
+    public static String cpf;
+    public static String telefone;
+    public static String email;
+    public static String sexo;
+    public static String data_nasc;
+    public static String endereco;
     
     public usuario (String email) throws SQLException {
         Poo22 DB = new Poo22();
@@ -37,6 +44,20 @@ public class usuario {
     public static void cadastro() throws SQLException {
         Scanner scan = new Scanner(System.in);
         
+        System.out.println("Nome:");
+        nome = scan.nextLine();
+        System.out.println("Cpf:");
+        cpf = scan.nextLine();
+        System.out.println("Telefone:");
+        telefone = scan.nextLine();
+        System.out.println("Email:");
+        email = scan.nextLine();
+        System.out.println("Endereco:");
+        endereco = scan.nextLine();
+        System.out.println("Sexo:");
+        sexo = scan.nextLine();
+        System.out.println("Data de Nascimento:");
+        data_nasc = scan.nextLine();
         System.out.println("Usuario:");
         user = scan.nextLine();
         System.out.println("Senha:");
@@ -46,11 +67,18 @@ public class usuario {
          
         Connection conn = DB.conn;
         
-            String sql = "INSERT INTO usuario(user,senha) VALUES(?,?)";  
+            String sql = "INSERT INTO usuario(nome, cpf, telefone, email, endereco, sexo, data_nasc, user, senha) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";  
           
             PreparedStatement stmt = conn.prepareStatement(sql);  
-            stmt.setString(1, user);  
-            stmt.setString(2, senha);    
+            stmt.setString(1, nome);  
+            stmt.setString(2, cpf);
+            stmt.setString(3, telefone);
+            stmt.setString(4, email);
+            stmt.setString(5, endereco);
+            stmt.setString(6, sexo);
+            stmt.setString(7, data_nasc);
+            stmt.setString(8, user);
+            stmt.setString(9, senha);
             stmt.execute();  
             stmt.close();  
             
