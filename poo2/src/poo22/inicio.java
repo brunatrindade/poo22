@@ -4,39 +4,33 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 public class inicio {
-    
-    /*public static void menuLogado(usuario user) throws SQLException {
-    
-    int escolha;
-    boolean loop = true;
-    
-    }*/
-    
-    public static void menuInicial() throws SQLException {
-    int escolha;
-    boolean loop = true;
-    String email;
-    
-       
-    Scanner scan = new Scanner(System.in);
 
-    while (loop) {            
+    public static void menuInicial() throws SQLException {
+        
+        int escolha;
+        boolean loop = true;
+        String user;
+
+        db DB = new db();
+        Scanner scan = new Scanner(System.in);
+
+        while (loop) {
             System.out.println("\nEscolha uma opção:");
-            System.out.println("1-Cadastrar");
+            System.out.println("1-Cadastrar Novo Usuario");
             System.out.println("2-Logar");
             System.out.println("3-Sair");
-            
+
             escolha = scan.nextInt();
-            
+
             switch (escolha) {
                 case 1:
-                    usuario.cadastro();
+                    usuario.cadastro(DB);
                     break;
                 case 2:
-                    email = usuario.login();
-                    if (email != null) {
-                        usuario user = new usuario(email);
-                        menuLogado(user);
+                    user = usuario.login(DB);
+                    if (user != null) {
+                        usuario usuario = new usuario(user);
+                        menuLogado(usuario, DB);
                     }
                     break;
                 case 3:
@@ -47,33 +41,33 @@ public class inicio {
                     break;
             }
         }
-}
-    
-public static void menuLogado(usuario user) throws SQLException {
-    
-    int escolha;
-    boolean loop = true;
-    
-    Scanner scan = new Scanner(System.in);
+    }
 
-    while (loop) {            
+    public static void menuLogado(usuario user, db DB) throws SQLException {
+
+        int escolha;
+        boolean loop = true;
+
+        Scanner scan = new Scanner(System.in);
+
+        while (loop) {
             System.out.println("\nEscolha uma opção:");
             System.out.println("1-Cadastrar Imovel");
             System.out.println("2-Editar cadastro de imovel");
             System.out.println("3-Listar Imoveis");
             System.out.println("4-Sair");
-            
+
             escolha = scan.nextInt();
-            
+
             switch (escolha) {
                 case 1:
-                    imovel.cadastrar_imovel(user);
+                    imovel.cadastrar_imovel(user, DB);
                     break;
                 case 2:
-                    imovel.editar_cadastro(user);
+                    imovel.editar_cadastro(user, DB);
                     break;
                 case 3:
-                    imovel.listar(user);
+                    imovel.listar(user, DB);
                     break;
                 case 4:
                     loop = false;
@@ -83,15 +77,12 @@ public static void menuLogado(usuario user) throws SQLException {
                     break;
             }
         }
-}
+    }
 
-    public static void main(String[] args) throws SQLException{
-        
+    public static void main(String[] args) throws SQLException {
+
         menuInicial();
-        
+
         System.out.println("Out!");
     }
 }
-
-    
-    
