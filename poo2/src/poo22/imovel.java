@@ -13,154 +13,197 @@ public class imovel {
     
     public static int id;
     public static String nome;
-    public static String endereco_imovel;
+    public static String endereco;
+    public static String tipo;
     public static String descricao;
-    public static String tamanho;
-    public static String vagas;
-    public static String preco_inicial;
-    public static String vendido_por;
+    public static int tamanho;
+    public static int vagas;
+    public static int preco_inicial;
     public static String listado_em;
     public static String finaliza_em;
 
 
-    public static void cadastrar_imovel(usuario user, db DB) throws SQLException {
-        Connection conn = DB.conn;
+    public static void cadastrar_imovel(usuario user, db DB) throws SQLException {  
         
-        imovel imovel = new imovel();
+        String DB_URL = "jdbc:mysql://localhost/poo2";
+        String USER = "root";
+        String PASS = "";
+        
+        Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+
         Scanner scan = new Scanner(System.in);
         
         System.out.println("Nome:");
-        imovel.nome = scan.nextLine();
+        nome = scan.nextLine();
         System.out.println("Endereco:");
-        imovel.endereco_imovel = scan.nextLine();
+        endereco = scan.nextLine();
+        System.out.println("Tipo de imovel:");
+        tipo = scan.nextLine();
         System.out.println("Descricao:");
-        imovel.descricao = scan.nextLine();
+        descricao = scan.nextLine();
         System.out.println("Tamanho:");
-        imovel.tamanho = scan.nextLine();
+        tamanho = scan.nextInt();
         System.out.println("Vagas:");
-        imovel.vagas = scan.nextLine();
+        vagas = scan.nextInt();
         System.out.println("Preco Inicial:");
-        imovel.preco_inicial = scan.nextLine();
-        System.out.println("Vendido Por:");
-        imovel.vendido_por = scan.nextLine();
+        preco_inicial = scan.nextInt();
         System.out.println("Listado Em:");
-        imovel.listado_em = scan.nextLine();
+        listado_em = scan.nextLine();                
         System.out.println("Finalizado Em:");
-        imovel.finaliza_em = scan.nextLine();
+        finaliza_em = scan.nextLine();
         
         
-            String sql = "INSERT INTO imovel(nome, endereco_imovel, descricao, tamanho, vagas, preco_inicial, vendido_por, listado_em, finaliza_em) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";  
+        String sql = "INSERT INTO imoveis(nome, endereco, usuario_id, tipo, descricao, tamanho, vagas, preco_inicial, listado_em, finaliza_em) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";  
           
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+        PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, nome);  
-            stmt.setString(2, endereco_imovel);
-            stmt.setString(3, descricao);
-            stmt.setString(4, tamanho);
-            stmt.setString(5, vagas);
-            stmt.setString(6, preco_inicial);
-            stmt.setString(7, vendido_por);
-            stmt.setString(8, listado_em);
-            stmt.setString(9, finaliza_em);
+            stmt.setString(2, endereco);
+            stmt.setInt(3, usuario.id);
+            stmt.setString(4, tipo);
+            stmt.setString(5, descricao);
+            stmt.setInt(6, tamanho);
+            stmt.setInt(7, vagas);
+            stmt.setInt(8, preco_inicial);
+            stmt.setString(9, listado_em);
+            stmt.setString(10, finaliza_em);
             stmt.execute();
-        }  
-            
-            System.out.println("\nCadastro efetuado com sucesso!");
+        
+        System.out.println("\nCadastro efetuado com sucesso!");
     }
     
     public static void editar_cadastro(usuario user, db DB) throws SQLException {
-        String texto;
+        
+        String DB_URL = "jdbc:mysql://localhost/poo2";
+        String USER = "root";
+        String PASS = "";
+        
+        Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+        
         String novoNome;
         String novoEnd;
         String novoDescr;
-        String novoTam;
-        String novoVagas;
-        String novoPreco;
+        int novoTam;
+        int novoVagas;
+        int novoPreco;
         
         Scanner scan = new Scanner(System.in);
         
-        System.out.println("Digite o novo valor do campo ou enter para não modificar");
+        System.out.println("Escolha o imovel que voce deseja alterar (pelo codigo): ");
+        imovel.id = scan.nextInt();
+        
+        System.out.println("\nDigite o novo valor do campo");
+        
         System.out.println("Nome: ");
-        texto = scan.nextLine();
-        if (!texto.equals("")) {
-            novoNome = texto;
-        } else {
-            novoNome = imovel.nome;
-        }
+        novoNome = scan.nextLine();
+        if (novoNome != null) {
+            imovel.nome = novoNome;
+        } 
         
         System.out.println("Endereço: ");
-        texto = scan.nextLine();
-        if (!texto.equals("")) {
-           novoEnd = texto;
-        } else {
-            novoEnd = imovel.endereco_imovel;
+        novoEnd = scan.nextLine();
+        if (novoEnd != null) {
+           imovel.endereco = novoEnd;
         }
         
         System.out.println("Desrição: ");
-        texto = scan.nextLine();
-        if (!texto.equals("")) {
-            novoDescr = texto;
-        } else {
-            novoDescr = imovel.descricao;
-        }
+        novoDescr = scan.nextLine();
+        if (novoDescr != null) {
+            imovel.descricao = novoDescr;
+        } 
         
         System.out.println("Tamanho: ");
-        texto = scan.nextLine();
-        if (!texto.equals("")) {
-            novoTam = texto;
-        } else {
-            novoTam = imovel.tamanho;
-        }
+        novoTam = scan.nextInt();
+        if (novoTam != 0) {
+            imovel.tamanho = novoTam;
+        } 
         
         System.out.println("Vagas: ");
-        texto = scan.nextLine();
-        if (!texto.equals("")) {
-            novoVagas = texto;
-        } else {
-            novoVagas = imovel.vagas;
-        }
+        novoVagas = scan.nextInt();
+        if (novoVagas != 0) {
+            imovel.vagas = novoVagas;
+        } 
         
         System.out.println("Preço: ");
-        texto = scan.nextLine();
-        if (!texto.equals("")) {
-            novoPreco = texto;
-        } else {
-            novoPreco = imovel.preco_inicial;
-        }
-                 
-        Connection conn = DB.conn;
+        novoPreco = scan.nextInt();
+        if (novoPreco != 0) {
+            imovel.preco_inicial = novoPreco;
+        } 
+
+
+        String sql = "UPDATE imoveis SET nome = ?, endereco = ?, descricao = ?, tamanho = ?, vagas = ?, preco_inicial = ? WHERE id = ?";
         
-        String sql = "UPDATE imovel SET nome = ?, endereco_imovel = ?, descricao = ?, tamanho = ?, vagas = ?, preco_inicial = ? WHERE user = ?";
-
-        PreparedStatement stmt = conn.prepareStatement(sql);  
-        stmt.setString(1,novoNome);  
-        stmt.setString(2,novoEnd);  
-        stmt.setString(3,novoDescr);  
-        stmt.setString(4,novoTam);
-        stmt.setString(5,novoVagas);
-        stmt.setString(6,novoPreco);
-        stmt.setString(7,usuario.user);  
-        stmt.execute();  
-        stmt.close();  
-
+        
+        PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1,imovel.nome);
+            stmt.setString(2,imovel.endereco);
+            stmt.setString(3,imovel.descricao);
+            stmt.setInt(4,imovel.tamanho);
+            stmt.setInt(5,imovel.vagas);
+            stmt.setInt(6,imovel.preco_inicial);
+            stmt.setInt(7,imovel.id);
+            stmt.execute();
+            stmt.close();  
         
         System.out.println("\nCadastro editado com sucesso!");
 
     }
     
     public static void listar(usuario user, db DB) throws SQLException {
-        Connection conn = DB.conn;
         
-        imovel i = new imovel();
+        String DB_URL = "jdbc:mysql://localhost/poo2";
+        String USER = "root";
+        String PASS = "";
+
+        Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+        
         Scanner scan = new Scanner(System.in);
+        Statement st = conn.createStatement();
+                   
+        ResultSet rs = conn.createStatement().executeQuery("SELECT nome, endereco, tipo, descricao, tamanho, vagas, preco_inicial, listado_em, finaliza_em FROM imoveis");
         
-        System.out.println("Nome: " + nome);
-        System.out.println("Endereço do imóvel: " + endereco_imovel);
-        System.out.println("Descrição: " + descricao);
-        System.out.println("Tamanho: " + tamanho);
-        System.out.println("Vagas: " + vagas);
-        System.out.println("Preço Inicial: " + preco_inicial);
-        System.out.println("Vendido por: " + vendido_por);
-        System.out.println("Listado em: " + listado_em);
-        System.out.println("Finalizado em: " + finaliza_em);
+        //precorre o resultset
+           while (rs.next()) {
+               nome = rs.getString("nome");
+               endereco = rs.getString("endereco");
+               tipo = rs.getString("tipo");
+               descricao = rs.getString("descricao");
+               tamanho = rs.getInt("tamanho");
+               vagas = rs.getInt("vagas");
+               preco_inicial = rs.getInt("preco_inicial");
+               listado_em = rs.getString("listado_em");
+               finaliza_em = rs.getString("finaliza_em");
+               
+ 
+               System.out.print("\nnome: " + imovel.nome);
+               System.out.print(", \nendereco: " + imovel.endereco);
+               System.out.print(", \ntipo: " + imovel.tipo);
+               System.out.print(", \ndescricao: " + imovel.descricao);
+               System.out.print(", \ntamanho: " + imovel.tamanho);
+               System.out.print(", \nvagas: " + imovel.vagas);
+               System.out.print(", \npreco inicial: " + imovel.preco_inicial);
+               System.out.print(", \nlistado em: " + imovel.listado_em);
+               System.out.print("\ne finalizado em: " + imovel.finaliza_em + "\n");
+           }
     }
+    
+        public static void delete(usuario user, db DB) throws SQLException {
+        String DB_URL = "jdbc:mysql://localhost/poo2";
+        String USER = "root";
+        String PASS = "";
+
+        Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+
+        Scanner scan = new Scanner(System.in);
+
+        System.out.println("Escolha o imovel que voce deseja alterar (pelo codigo): ");
+        imovel.id = scan.nextInt();
+        
+        PreparedStatement stmt = conn.prepareStatement("DELETE FROM imoveis WHERE id = ?");
+
+        stmt.setInt(1, imovel.id);
+        stmt.execute();
+        stmt.close();
+
+        System.out.println("\nCadastro excluido com sucesso!");
     }
+}
