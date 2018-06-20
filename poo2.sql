@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: 11-Jun-2018 às 20:07
+-- Generation Time: 20-Jun-2018 às 05:01
 -- Versão do servidor: 10.1.31-MariaDB
 -- PHP Version: 7.2.3
 
@@ -21,27 +21,6 @@ SET time_zone = "+00:00";
 --
 -- Database: `poo2`
 --
-
--- --------------------------------------------------------
-
---
--- Estrutura da tabela `imoveis`
---
-
-CREATE TABLE `imoveis` (
-  `id` int(11) NOT NULL,
-  `nome` varchar(255) NOT NULL,
-  `endereco` varchar(255) NOT NULL,
-  `usuario_id` int(11) NOT NULL,
-  `tipo_id` int(11) NOT NULL,
-  `descricao` mediumtext NOT NULL,
-  `tamanho` int(11) NOT NULL,
-  `vagas` int(11) NOT NULL,
-  `preco_inicial` float NOT NULL,
-  `vendido_por` float DEFAULT NULL,
-  `listado_em` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `finaliza_em` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
@@ -67,8 +46,12 @@ CREATE TABLE `usuario` (
 --
 
 INSERT INTO `usuario` (`nome`, `cpf`, `telefone`, `email`, `endereco`, `sexo`, `data_nasc`, `id`, `user`, `senha`) VALUES
-('', '', '', '', '', '', '', 1, 'andressa', '12345'),
-('', '', '', '', '', '', '', 2, 'andressa', '12345');
+('andressa', '03857674040', '96964947', 'andressakotz@hotmail.com', 'salvador das missoes', 'f', '2000/01/01', 3, 'andressakotz', '12345'),
+('a', 'a', 'a', 'a', 'a', 'a', 'a', 6, 'a', 'a'),
+('denise', '71292942053', '97239712', 'denise_kotz@hotmail.com', 'vila santa catarina', 'f', '1969/01/07', 7, 'denisekotz', '12345'),
+('bruna', '23432432', '2432432', 'bruna@trindade.com', 'santo angelo', 'f', '2324/54/34', 8, 'bruna', 'bruna'),
+('nelmo', '55733905034', '91599455', 'nelmo@aloisio.com', 'salvador das missoes', 'm', '1966/03/16', 9, 'nelmo', '123'),
+('douglas', '23232323232', '23232323', 'douglas@rech.com', 'salvador', 'm', '2343/34/23', 10, 'douglas', '123');
 
 --
 -- Indexes for dumped tables
@@ -88,7 +71,7 @@ ALTER TABLE `usuario`
 -- AUTO_INCREMENT for table `usuario`
 --
 ALTER TABLE `usuario`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
