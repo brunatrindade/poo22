@@ -32,6 +32,7 @@ public class inicio {
                         usuario usuario = new usuario(user);
                         menuLogado(usuario, DB);
                     }
+                    
                     break;
                 case 3:
                     loop = false;
@@ -53,9 +54,10 @@ public class inicio {
         while (loop) {
             System.out.println("\nEscolha uma opção:");
             System.out.println("1-Cadastrar Imovel");
-            System.out.println("2-Editar cadastro de imovel");
+            System.out.println("2-Editar Cadastro de Imovel");
             System.out.println("3-Listar Imoveis");
-            System.out.println("4-Sair");
+            System.out.println("4-Excluir Cadastro de Imovel");
+            System.out.println("5-Sair");
 
             escolha = scan.nextInt();
 
@@ -70,6 +72,9 @@ public class inicio {
                     imovel.listar(user, DB);
                     break;
                 case 4:
+                    imovel.delete(user, DB);
+                    break;
+                case 5:
                     loop = false;
                     break;
                 default:
