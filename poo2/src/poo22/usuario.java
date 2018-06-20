@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.PreparedStatement;
+import java.util.concurrent.ExecutionException;
 
 public class usuario {
 
@@ -24,7 +25,13 @@ public class usuario {
 
     public usuario(String user) throws SQLException {
         db DB = new db();
-        Connection conn = DB.conn;
+        //Connection conn = DB.conn;
+        
+        String DB_URL = "jdbc:mysql://localhost/poo2";
+        String USER = "root";
+        String PASS = "";
+
+        Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
         String sql = "SELECT * FROM usuario WHERE user = ?";
 
@@ -35,7 +42,7 @@ public class usuario {
 
         while (rs.next()) {
             usuario.id = rs.getInt("id");
-            usuario.user = rs.getString("usuario");
+            usuario.user = rs.getString("user");
             usuario.senha = rs.getString("senha");
         }
     }
@@ -62,11 +69,16 @@ public class usuario {
         System.out.println("Senha:");
         senha = scan.nextLine();
 
-        Connection conn = DB.conn;
+        //Connection conn = DB.conn;
+        String DB_URL = "jdbc:mysql://localhost/poo2";
+        String USER = "root";
+        String PASS = "";
+
+        Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
         String sql = "INSERT INTO usuario(nome, cpf, telefone, email, endereco, sexo, data_nasc, user, senha) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-        try (PreparedStatement stmt = conn.prepareStatement(sql)) {
+        PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setString(1, nome);
             stmt.setString(2, cpf);
             stmt.setString(3, telefone);
@@ -77,8 +89,8 @@ public class usuario {
             stmt.setString(8, user);
             stmt.setString(9, senha);
             stmt.execute();
-        }
-
+        
+        
         System.out.println("\nCadastro efetuado com sucesso!");
     }
 
@@ -90,7 +102,13 @@ public class usuario {
         System.out.println("Senha:");
         senha = scan.nextLine();
 
-        Connection conn = DB.conn;
+        //Connection conn = DB.conn;
+        
+        String DB_URL = "jdbc:mysql://localhost/poo2";
+        String USER = "root";
+        String PASS = "";
+
+        Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
 
         String sql = "SELECT * FROM usuario WHERE user = ? AND senha = ?";
 
